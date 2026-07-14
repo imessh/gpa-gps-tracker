@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F1ECDD;
+  background-image:
+    linear-gradient(#C9BFA5 1px, transparent 1px),
+    linear-gradient(90deg, transparent 39px, transparent 39px);
+  background-size: 100% 2rem;
+  color: #1E2A3A;
+}
+
+/* subtle paper grain so the ledger lines don't look like a flat gradient */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: radial-gradient(#1E2A3A 0.5px, transparent 0.5px);
+  background-size: 3px 3px;
+  z-index: 0;
+}
+
+::selection {
+  background-color: #B08D2B;
+  color: #F1ECDD;
+}
+
+.transcript-card {
+  background-color: #F7F3E7;
+  border: 1px solid #C9BFA5;
+}
+
+/* Focus states — visible keyboard focus everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #B08D2B;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

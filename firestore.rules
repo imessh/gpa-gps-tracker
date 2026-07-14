@@ -1,0 +1,21 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // GPA history entries: anyone with the app can create and read.
+    // Tighten this once you add Firebase Authentication (see README).
+    match /gpaRecords/{recordId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+
+    // GPS/IoT interest submissions: same open-for-now policy.
+    match /gpsInterests/{entryId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if false;
+    }
+  }
+}
