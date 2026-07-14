@@ -273,172 +273,67 @@ export default function GPAForm({ onSaved }) {
 
   return (
 
-    <div className="transcript-card rounded-sm p-6">
+    <div className="card animated-in">
 
-
-      <h2 className="font-display text-xl font-semibold text-ink mb-4">
-
-        Modules
-
-      </h2>
-
-
-
-      {modules.map((m, idx) => (
-
-
-        <div
-          key={m.id}
-          className="grid grid-cols-4 gap-3 mb-3"
-        >
-
-
-          <input
-
-            type="text"
-
-            placeholder={`Module ${idx + 1}`}
-
-            value={m.name}
-
-            onChange={(e)=>
-              updateModule(
-                m.id,
-                "name",
-                e.target.value
-              )
-            }
-
-          />
-
-
-
-          <input
-
-            type="number"
-
-            placeholder="Credits"
-
-            value={m.credits}
-
-            onChange={(e)=>
-              updateModule(
-                m.id,
-                "credits",
-                e.target.value
-              )
-            }
-
-          />
-
-
-
-          <select
-
-            value={m.grade}
-
-            onChange={(e)=>
-              updateModule(
-                m.id,
-                "grade",
-                e.target.value
-              )
-            }
-
-          >
-
-            {GRADES.map((g)=>(
-
-              <option
-                key={g}
-                value={g}
-              >
-                {g}
-              </option>
-
-            ))}
-
-          </select>
-
-
-
-
-          <button
-
-            onClick={() =>
-              removeModule(m.id)
-            }
-
-          >
-
-            Remove
-
-          </button>
-
-
+      <div className="flex items-start justify-between mb-4">
+        <div>
+          <h2 className="h2">Modules</h2>
+          <div className="kicker">Add modules, credits and select grades</div>
         </div>
-
-
-      ))}
-
-
-
-      <button
-        onClick={addModule}
-      >
-
-        + Add Module
-
-      </button>
-
-
-
-
-      <div className="mt-6">
-
-        <h3>
-          GPA: {gpa.toFixed(2)}
-        </h3>
-
-
-        <p>
-          Credits: {totalCredits}
-        </p>
-
-
+        <div className="small">GPA: <strong>{gpa.toFixed(2)}</strong></div>
       </div>
 
+      <div className="space-y-3">
+        {modules.map((m, idx) => (
+                  <div key={m.id} className="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+                    <div className="md:col-span-6 col-span-1">
+                      <input
+                        type="text"
+                        placeholder={`Module ${idx + 1}`}
+                        value={m.name}
+                        onChange={(e) => updateModule(m.id, "name", e.target.value)}
+                      />
+                    </div>
 
+                    <div className="md:col-span-2 col-span-1">
+                      <input
+                        type="number"
+                        placeholder="Credits"
+                        value={m.credits}
+                        onChange={(e) => updateModule(m.id, "credits", e.target.value)}
+                      />
+                    </div>
 
+                    <div className="md:col-span-3 col-span-1">
+                      <select value={m.grade} onChange={(e) => updateModule(m.id, "grade", e.target.value)}>
+                        {GRADES.map((g) => (
+                          <option key={g} value={g}>{g}</option>
+                        ))}
+                      </select>
+                    </div>
 
-      <button
+                    <div className="md:col-span-1 col-span-1 text-right">
+                      <button onClick={() => removeModule(m.id)} className="btn btn-ghost w-full md:w-auto" aria-label="Remove module">Remove</button>
+                    </div>
+                  </div>
+                ))}
+      </div>
 
-        onClick={handleSave}
+      <div className="mt-4 flex gap-3">
+        <button onClick={addModule} className="btn btn-outline">+ Add Module</button>
+        <div className="ml-auto small">Total credits: <strong>{totalCredits}</strong></div>
+      </div>
 
-        disabled={saving}
-
-      >
-
-        {saving
-          ? "Saving..."
-          : "Save to history"}
-
-      </button>
-
-
-
+      <div className="mt-5 flex gap-3">
+        <button onClick={handleSave} disabled={saving} className="btn btn-primary">
+          {saving ? "Saving..." : "Save to history"}
+        </button>
+        <button onClick={() => { setModules([emptyModule(), emptyModule()]); }} className="btn btn-ghost">Reset</button>
+      </div>
 
       {status && (
-
-        <p>
-
-          {status.message}
-
-        </p>
-
+        <p className="mt-4 small">{status.message}</p>
       )}
-
-
 
     </div>
 

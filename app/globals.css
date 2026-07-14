@@ -2,54 +2,138 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
+:root{
+  --bg: #0f172a; /* slate-900 */
+  --surface: #0b1220;
+  --muted: #94a3b8; /* slate-400 */
+  --accent: #7c3aed; /* violet-600 */
+  --accent-2: #06b6d4; /* teal-400 */
+  --text: #e6eef8;
+  --glass: rgba(255,255,255,0.06);
 }
+
+/* Light theme variables */
+:root.light{
+  --bg: #f8fafc; /* slate-50 */
+  --surface: #ffffff;
+  --muted: #475569;
+  --accent: #6366f1; /* indigo-500 */
+  --accent-2: #06b6d4;
+  --text: #0f172a;
+  --glass: rgba(15,23,42,0.04);
+}
+
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: #F1ECDD;
-  background-image:
-    linear-gradient(#C9BFA5 1px, transparent 1px),
-    linear-gradient(90deg, transparent 39px, transparent 39px);
-  background-size: 100% 2rem;
-  color: #1E2A3A;
+  min-height: 100vh;
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(124,58,237,0.12), transparent 10%),
+              linear-gradient(180deg, rgba(6,182,212,0.04), transparent 30%),
+              var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* subtle paper grain so the ledger lines don't look like a flat gradient */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.05;
-  background-image: radial-gradient(#1E2A3A 0.5px, transparent 0.5px);
-  background-size: 3px 3px;
-  z-index: 0;
+/* selection */
+::selection { background: linear-gradient(90deg,var(--accent),var(--accent-2)); color: white; }
+
+/* cards */
+.card,
+.transcript-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 1.25rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(2,6,23,0.45);
 }
 
-::selection {
-  background-color: #B08D2B;
-  color: #F1ECDD;
+/* buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  padding:0.6rem 1rem;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  border:1px solid transparent;
 }
 
-.transcript-card {
-  background-color: #F7F3E7;
-  border: 1px solid #C9BFA5;
+.btn:active{ transform: translateY(1px) scale(.998); }
+
+.btn-ghost{
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
-/* Focus states — visible keyboard focus everywhere */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 2px solid #B08D2B;
-  outline-offset: 2px;
+.btn-primary{
+  background: linear-gradient(90deg,var(--accent),var(--accent-2));
+  color: white;
+  box-shadow: 0 8px 24px rgba(99,102,241,0.14);
 }
+
+.btn-outline{
+  background: transparent;
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* inputs */
+input[type=text], input[type=number], select, textarea{
+  width:100%;
+  padding:0.6rem 0.75rem;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: var(--text);
+  transition: box-shadow .12s ease, border-color .12s ease, transform .08s ease;
+}
+
+input::placeholder, select::placeholder{ color: var(--muted); }
+
+input:focus, select:focus, textarea:focus{ outline: none; box-shadow: 0 6px 18px rgba(124,58,237,0.08); border-color: rgba(124,58,237,0.6); }
+
+/* subtle entry animation */
+@keyframes floatIn {
+  from{ opacity: 0; transform: translateY(8px) scale(.995);} 
+  to{ opacity:1; transform: translateY(0) scale(1);} 
+}
+.animated-in{ animation: floatIn .36s cubic-bezier(.2,.9,.2,1) both; }
+
+/* focus-visible accessibility */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible{ outline: 3px solid rgba(99,102,241,0.18); outline-offset: 3px; }
+
+/* small helper classes */
+.kicker{ font-size:.9rem; color:var(--muted); }
+.h2{ font-size:1.125rem; font-weight:700; color:var(--text); }
+.small{ font-size:.92rem; color:var(--muted); }
+
+/* legacy utility class compatibility (from older design)
+   ensures existing pages remain readable in dark theme */
+:root{ --gold: #f59e0b; }
+.text-ink{ color: var(--text) !important; }
+.text-ink-soft{ color: var(--muted) !important; }
+.text-gold{ color: var(--gold) !important; }
+.bg-paper{ background: var(--surface) !important; }
+.border-gold{ border-color: var(--gold) !important; }
+.font-display{ font-weight:700; }
+.font-body{ font-weight:500; }
+.font-mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Segoe UI Mono", "Helvetica Neue", monospace; }
+
+/* seal shadow used on Home page */
+.shadow-seal{ box-shadow: 0 10px 30px rgba(2,6,23,0.5); }
+
+/* make remove links subtle */
+.btn-danger{ background: transparent; color:#ffb4b4; border: 1px solid rgba(255,100,100,0.08); }
+
+/* ensure inputs and buttons don't overflow small screens */
+input, select, textarea, .btn{ box-sizing: border-box; }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }

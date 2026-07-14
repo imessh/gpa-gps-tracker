@@ -61,104 +61,63 @@ export default function Navbar() {
 
   return (
 
-    <nav className="flex items-center justify-between px-6 py-4 border-b">
+    <nav className="w-full bg-white/6 backdrop-blur-md border-b border-white/6 px-6 py-3 shadow-sm">
 
 
-      <div className="flex gap-5">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#7c3aed] to-[#06b6d4] flex items-center justify-center text-white font-bold">G</div>
+            <div className="hidden sm:block">
+              <div className="text-sm font-semibold">GPA · Tracker</div>
+              <div className="text-xs small">Modern GPA & History</div>
+            </div>
+          </Link>
+
+          <div className="hidden md:flex gap-4 items-center">
+            <Link href="/calculator" className="text-sm small hover:underline">Calculator</Link>
+            <Link href="/gps" className="text-sm small hover:underline">GPS Interest</Link>
+          </div>
+        </div>
 
 
-        <Link href="/">
-          Home
-        </Link>
 
 
-        <Link href="/calculator">
-          GPA Calculator
-        </Link>
 
+      <div className="flex items-center gap-3">
+          {/* Theme toggle — simple and non-blocking */}
+          <button
+            onClick={() => {
+              const root = document.documentElement;
+              const isLight = root.classList.contains('light');
+              if (isLight) root.classList.remove('light'); else root.classList.add('light');
+            }}
+            aria-label="Toggle theme"
+            className="btn btn-ghost"
+            title="Toggle light / dark"
+          >
+            <span aria-hidden>🌓</span>
+          </button>
 
-        <Link href="/gps">
-          GPS Interest
-        </Link>
-
-
+          {user ? (
+            <>
+              <span className="text-sm small px-2 py-1 rounded-md bg-white/4">{user.email}</span>
+              <button onClick={logout} className="btn btn-outline">Logout</button>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="btn btn-ghost">Login</Link>
+              <Link href="/register" className="btn btn-primary">Signup</Link>
+            </>
+          )}
+        </div>
       </div>
-
-
-
-
-
-      <div className="flex items-center gap-4">
-
-
-        {user ? (
-
-          <>
-
-
-            <span className="text-sm">
-
-              {user.email}
-
-            </span>
-
-
-            <button
-
-              onClick={logout}
-
-              className="px-3 py-1 border rounded"
-
-            >
-
-              Logout
-
-            </button>
-
-
-          </>
-
-
-        ) : (
-
-
-          <>
-
-
-            <Link
-              href="/login"
-              className="px-3 py-1 border rounded"
-            >
-
-              Login
-
-            </Link>
-
-
-
-            <Link
-              href="/register"
-              className="px-3 py-1 bg-black text-white rounded"
-            >
-
-              Signup
-
-            </Link>
-
-
-          </>
-
-
-        )}
-
-
-
-      </div>
-
-
-
     </nav>
 
   );
 
 }
+
+
+  
+
