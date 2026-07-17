@@ -1,94 +1,49 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16 md:py-24">
-      <div className="flex flex-col md:flex-row md:items-center gap-12">
-        <div className="flex-1">
-          <p className="font-mono text-xs uppercase tracking-[0.25em] text-gold mb-4">
-            Academic record, kept plainly
-          </p>
-          <h1 className="font-display text-4xl md:text-5xl font-semibold text-ink leading-tight">
-            Every module.
-            <br />
-            One honest number.
-          </h1>
-          <p className="mt-5 text-ink-soft max-w-md leading-relaxed">
-            Enter each module's credits and grade, and this ledger works out
-            your overall GPA the same way a registrar would — weighted by
-            credit, not by headcount. Save each calculation and come back to
-            it later.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/calculator"
-              className="px-5 py-2.5 bg-ink text-paper font-body text-sm rounded-sm hover:bg-ink-soft transition-colors"
-            >
-              Open GPA Calculator
-            </Link>
-            <Link
-              href="/gps"
-              className="px-5 py-2.5 border border-ink text-ink font-body text-sm rounded-sm hover:bg-paper-dim transition-colors"
-            >
-              Log a GPS/IoT Interest
-            </Link>
+    <div className="container">
+      <div className="grid md:grid-cols-2 gap-10 py-20 items-center">
+        <div>
+          <h1 className="h1">Student GPS & GPA Tracker</h1>
+          <p className="lead mt-4">Quickly calculate weighted GPAs for terms and keep a running history. The GPS interest logging feature has been removed — the app now focuses on accurate GPA calculations and clear history management.</p>
+
+          <div className="mt-6 flex gap-3">
+            <Link href="/calculator" className="btn btn-primary">Open GPA Calculator</Link>
+            <Link href="/register" className="btn btn-outline">Create account</Link>
           </div>
         </div>
 
-        {/* Signature element: a transcript "seal" stamp showing a sample GPA */}
-        <div className="shrink-0 mx-auto md:mx-0">
-          <div className="w-40 h-40 rounded-full border-2 border-gold flex flex-col items-center justify-center shadow-seal rotate-[-6deg] bg-paper">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">
-              Overall
-            </span>
-            <span className="font-display text-4xl font-semibold text-ink">
-              3.87
-            </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-gold">
-              GPA
-            </span>
+        <div className="card hero-card">
+          <div className="kicker">Snapshot</div>
+          <div className="mt-4 flex items-center justify-between">
+            <div>
+              <div className="small">Modules this term</div>
+              <div className="h2">8</div>
+            </div>
+            <div>
+              <div className="small">Latest GPA</div>
+              <div className="h2" style={{color:'var(--accent)'}}>3.87</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="mt-20 grid sm:grid-cols-2 gap-6">
-        <FeatureCard
-          eyebrow="01 — Calculate"
-          title="GPA Calculator"
-          body="Add modules, enter credits and grades, and see your weighted GPA update as you type. Save it to keep a running history."
-          href="/calculator"
-          cta="Go to calculator"
-        />
-        <FeatureCard
-          eyebrow="02 — Explore"
-          title="GPS Interest Tracker"
-          body="Note down GPS or IoT project ideas and locations you're interested in, so they're recorded somewhere other than a sticky note."
-          href="/gps"
-          cta="Log an interest"
-        />
-      </div>
-    </div>
-  );
-}
+      <section className="mt-12">
+        <h2 className="h2">What you can do</h2>
+        <div className="grid md:grid-cols-3 gap-6 mt-4">
+          <div className="card">
+            <h3 className="font-semibold">GPA Calculator</h3>
+            <p className="small mt-2">Enter modules with credits and grades to compute a weighted GPA. Save results to your personal history.</p>
+            <div className="mt-3"><Link href="/calculator" className="text-teal-600">Open calculator →</Link></div>
+          </div>
 
-function FeatureCard({ eyebrow, title, body, href, cta }) {
-  return (
-    <div className="transcript-card rounded-sm p-6 flex flex-col">
-      <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-gold">
-        {eyebrow}
-      </span>
-      <h2 className="font-display text-2xl font-semibold text-ink mt-2">
-        {title}
-      </h2>
-      <p className="text-sm text-ink-soft mt-3 leading-relaxed flex-1">
-        {body}
-      </p>
-      <Link
-        href={href}
-        className="mt-5 text-sm font-body text-ink underline decoration-gold decoration-2 underline-offset-4 hover:text-gold w-fit"
-      >
-        {cta} →
-      </Link>
+          <div className="card md:col-span-2">
+            <h3 className="font-semibold">Focused experience</h3>
+            <p className="small mt-2">The application concentrates on GPA accuracy, clarity and a clean history UI. GPS logging has been intentionally removed to simplify the workflow.</p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

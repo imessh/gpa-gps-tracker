@@ -54,25 +54,11 @@ export default function RootLayout({ children }) {
 
 
 
-        <footer className="relative z-10 border-t border-rule mt-16">
-
-
-          <div className="max-w-4xl mx-auto px-6 py-6 text-xs text-ink-soft flex items-center justify-between font-mono">
-
-
-            <span>
-              Transcript Ledger — built with Next.js &amp; Firebase
-            </span>
-
-
-            <span>
-              Student project, {year}
-            </span>
-
-
+        <footer className="border-t mt-16">
+          <div className="container py-6 flex items-center justify-between small">
+            <span>Student Tracker — built with Next.js & Firebase</span>
+            <span>Student project, {year}</span>
           </div>
-
-
         </footer>
 
 
